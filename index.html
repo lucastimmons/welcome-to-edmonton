@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body {
+	font-family: helvetica;
+}
+input {
+    border: 5px solid white;
+    -webkit-box-shadow:
+      inset 0 0 4px  rgba(0,0,0,0.1),
+            0 0 8px rgba(0,0,0,0.1);
+    -moz-box-shadow:
+      inset 0 0 4px  rgba(0,0,0,0.1),
+            0 0 8px rgba(0,0,0,0.1);
+    box-shadow:
+      inset 0 0 4px  rgba(0,0,0,0.1),
+            0 0 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 0 10px 0;
+    float: left;
+    margin-right: 286px;
+}
+.buttonstyle {
+    border: 5px solid white;
+    -webkit-box-shadow:
+      inset 0 0 4px  rgba(0,0,0,0.1),
+            0 0 8px rgba(0,0,0,0.1);
+    -moz-box-shadow:
+      inset 0 0 4px  rgba(0,0,0,0.1),
+            0 0 8px rgba(0,0,0,0.1);
+    box-shadow:
+      inset 0 0 4px  rgba(0,0,0,0.1),
+            0 0 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    background: rgba(255,255,255);
+    margin: 0 0 10px 0;
+    cursor: hand;
+
+}.buttonstyle:active {
+	position:relative;
+	top:1px;
+}
+
+#photo {
+	background-image:url('welcome.jpg');
+	width:845px;
+	height:856px;
+}
+#demo {
+	display: none;
+	visibility: hidden;
+	position: relative;
+	color: #8b898a;
+	font-family: 'Montserrat Alternates', sans-serif;
+	z-index: 999;
+}
+
+.demo1 {
+	display: block;
+	visibility: visible;
+	color: #8b898a;
+	font-family: 'Montserrat Alternates', sans-serif;
+	font-size: 23px;
+	top: 500px;
+	left: 359px;
+}
+
+.demo2 {
+	display: block;
+	visibility: visible;
+	color: #8b898a;
+	font-family: 'Montserrat Alternates', sans-serif;
+	font-size: 14px;
+	top: 500px;
+	left: 355px;
+}
+#controls {
+	width:845px;
+	padding-bottom: 10px;
+}
+#downl {
+	visibility: hidden;
+	display: none;
+	width:845px;
+	text-align: center;
+	padding-bottom: 10px;
+}
+#printme {
+	display: none;
+	visibility: hidden;
+	width: 845px;
+	height: 866px;
+}
+</style>
+	<script type="text/javascript" src="html2canvas.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<body>
+<div id="controls">
+<input id="edValue" type="text" maxlength="27" size="40" placeholder="Your sign text here">
+<button class="buttonstyle" onclick="myFunction()">Click here to make your own sign</button>
+<button class="buttonstyle" onclick="screenshot()">Print it!</button>
+</div>
+<div id="downl">
+<button class="buttonstyle" onclick="history.go(0)">Right click on the image to download it or click here to try again</button>
+</div>
+<div id="photo"><p id="demo"><span>City of Champions</span></p></div>
+<div id="printme"></div>
+<script>
+function myFunction()
+{
+var edValue = document.getElementById("edValue"); // Input box
+var s = edValue.value; // Get value of input box and assign it to variable s
+console.log(s.length);
+if (s!=" ") {
+	var str = document.getElementById("demo").innerHTML; //Find the element id=Demo, assign the HTML inner value of it to the vairable str
+	var res = str.replace(str,s); //Replce the value of str with s as a variable.
+	document.getElementById("demo").innerHTML = "<div id='words'>" + res + "</div>"; // replace the value of the element id=Demo on screen with the value of res.
+	document.getElementById("demo").style.display = "block";
+	document.getElementById("demo").style.visibility = "visible";
+	} else {
+		alert("Please enter a slogan.");
+	}
+		if (s.length > 19) {
+			document.getElementById("demo").className = "demo2";
+		}
+		else
+		{
+			document.getElementById("demo").className = "demo1";
+		}
+}
+
+function screenshot() {
+	html2canvas($('#photo'), {
+		onrendered: function(canvas) {
+			var img = canvas.toDataURL('image/png')
+			var id = "rendered"
+			$('#printme').append("<img id=" + id + " src=" + img + ">");
+			document.getElementById('photo').style.visibility = "hidden";
+			document.getElementById('photo').style.display = "none";
+			document.getElementById('printme').style.display = "block";
+			document.getElementById('printme').style.visibility = "visible";
+			document.getElementById('controls').style.visibility = "hidden";
+			document.getElementById('controls').style.display = "none";
+			document.getElementById('downl').style.display = "block";
+			document.getElementById('downl').style.visibility = "visible";
+
+
+									}
+								});
+								}
+
+</script>
+</body>
+</html>
